@@ -1,14 +1,197 @@
-<h1>Your Cart</h1>
-<% if (cart.length === 0) { %>
-  <p>Cart is empty</p>
-<% } else { %>
-  <% cart.forEach(item => { %>
-    <p><%= item.name %> × <%= item.quantity %> = $<%= item.price * item.quantity %></p>
-  <% }) %>
-  <h3>Total: $<%= total %></h3>
-  <form action="/checkout" method="POST">
-    <input type="email" name="email" placeholder="Your Email" required>
-    <button>Pay with Stripe</button>
-  </form>
-<% } %>
-<a href="/">Back to Shop</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cart | Urban Solz</title>
+<style>
+/* === RESET & BASE === */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(180deg,#f6f0e9 0%,#f5deb3 100%);
+  color:#3e2723;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* === HEADER === */
+header{
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(10px);
+  position:sticky;top:0;z-index:1000;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 6%;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+}
+header h1{
+  font-size:1.5rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#3e2723;
+}
+header a{
+  color:#4e342e;
+  text-decoration:none;
+  font-weight:500;
+  transition:color .3s;
+}
+header a:hover{color:#a1887f}
+
+/* === MAIN CART SECTION === */
+main{
+  flex:1;
+  max-width:700px;
+  margin:80px auto;
+  padding:0 6%;
+  text-align:center;
+  animation:fadein 1s ease;
+}
+@keyframes fadein{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+main h1{
+  font-size:2rem;
+  font-weight:700;
+  margin-bottom:25px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+/* === CART ITEMS === */
+.cart-items{
+  background:#fff;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  padding:30px;
+  text-align:left;
+  margin-bottom:30px;
+}
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px solid #f0e0c0;
+  padding:10px 0;
+  font-size:1rem;
+}
+.cart-item:last-child{border-bottom:none;}
+.cart-item strong{color:#3e2723;}
+
+/* === TOTAL === */
+.total{
+  font-size:1.2rem;
+  font-weight:700;
+  text-align:right;
+  margin-top:15px;
+  color:#3e2723;
+}
+
+/* === CHECKOUT FORM === */
+form{
+  background:#fff;
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+  padding:25px;
+  text-align:center;
+  transition:transform .3s;
+}
+form:hover{transform:translateY(-3px);}
+form input{
+  width:100%;
+  padding:12px 14px;
+  border:1px solid #ccc;
+  border-radius:10px;
+  font-size:1rem;
+  margin-bottom:15px;
+  transition:border-color .3s,box-shadow .3s;
+}
+form input:focus{
+  border-color:#a1887f;
+  box-shadow:0 0 6px rgba(161,136,127,0.5);
+  outline:none;
+}
+form button{
+  width:100%;
+  padding:12px;
+  background:#3e2723;
+  color:#fff;
+  border:none;
+  border-radius:25px;
+  font-size:1rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:background .3s,transform .3s;
+}
+form button:hover{
+  background:#a1887f;
+  color:#3e2723;
+  transform:scale(1.05);
+}
+
+/* === EMPTY CART === */
+.empty{
+  font-size:1.1rem;
+  color:#4e342e;
+  background:#fff;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* === BACK LINK === */
+.back-link{
+  display:inline-block;
+  margin-top:30px;
+  text-decoration:none;
+  font-weight:500;
+  color:#3e2723;
+  transition:color .3s;
+}
+.back-link:hover{color:#a1887f}
+
+/* === RESPONSIVE === */
+@media(max-width:600px){
+  main{margin:60px auto;}
+  main h1{font-size:1.7rem;}
+  .cart-item{flex-direction:column;align-items:flex-start;}
+  .total{text-align:left;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Urban Solz</h1>
+  <a href="/">Back to Shop</a>
+</header>
+
+<main>
+  <h1>Your Cart</h1>
+
+  <% if (cart.length === 0) { %>
+    <div class="empty">
+      <p>🛍️ Your cart is empty</p>
+    </div>
+  <% } else { %>
+    <div class="cart-items">
+      <% cart.forEach(item => { %>
+        <div class="cart-item">
+          <span><%= item.name %> × <%= item.quantity %></span>
+          <strong>$<%= item.price * item.quantity %></strong>
+        </div>
+      <% }) %>
+      <div class="total">Total: $<%= total %></div>
+    </div>
+
+    <form action="/checkout" method="POST">
+      <input type="email" name="email" placeholder="Your Email" required>
+      <button>Pay with Stripe</button>
+    </form>
+  <% } %>
+
+  <a class="back-link" href="/">← Continue Shopping</a>
+</main>
+
+</body>
+</html>

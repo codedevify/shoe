@@ -1,20 +1,164 @@
-<!-- views/admin/email-settings.ejs -->
-<h1>Email Settings</h1>
-<form action="/admin/email-config" method="POST">
-  <p>
-    <label>Send From (Gmail):</label><br>
-    <input type="email" name="emailUser" value="<%= config.emailUser %>" required style="width:100%; padding:8px; font-size:16px;">
-  </p>
-  <p>
-    <label>App Password:</label><br>
-    <input type="password" name="emailPass" value="<%= config.emailPass %>" required style="width:100%; padding:8px; font-size:16px;">
-    <br><small><a href="https://myaccount.google.com/apppasswords" target="_blank">Get App Password</a></small>
-  </p>
-  <p>
-    <label>Receive Alerts At:</label><br>
-    <input type="email" name="sellerEmail" value="<%= config.sellerEmail %>" required style="width:100%; padding:8px; font-size:16px;">
-  </p>
-  <button type="submit" style="padding:12px 24px; background:#28a745; color:white; border:none; font-size:16px;">Save Email Settings</button>
-</form>
-<br>
-<a href="/admin">Back to Dashboard</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Settings | Urban Solz Admin</title>
+<style>
+/* === RESET & BASE === */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(180deg,#f6f0e9 0%,#f5deb3 100%);
+  color:#3e2723;
+  overflow-x:hidden;
+  padding-bottom:80px;
+}
+
+/* === HEADER === */
+header{
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(10px);
+  position:sticky;top:0;z-index:1000;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 6%;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+}
+header h1{font-size:1.5rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#3e2723;}
+header nav a{
+  margin-left:25px;
+  font-weight:500;
+  color:#4e342e;
+  text-decoration:none;
+  transition:color .3s;
+}
+header nav a:hover{color:#a1887f}
+
+/* === MAIN CONTAINER === */
+main{
+  max-width:700px;
+  margin:80px auto;
+  padding:0 6%;
+}
+main h1{
+  font-size:2rem;
+  font-weight:700;
+  margin-bottom:20px;
+  text-align:center;
+  letter-spacing:1px;
+}
+
+/* === FORM CARD === */
+form{
+  background:#fff;
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+  padding:30px;
+  transition:transform .3s;
+}
+form:hover{transform:translateY(-3px);}
+form p{
+  margin-bottom:18px;
+}
+form label{
+  font-weight:600;
+  color:#3e2723;
+}
+form input{
+  width:100%;
+  padding:12px 14px;
+  margin-top:5px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  font-size:1rem;
+  transition:border-color .3s,box-shadow .3s;
+}
+form input:focus{
+  border-color:#a1887f;
+  box-shadow:0 0 6px rgba(161,136,127,0.5);
+  outline:none;
+}
+form small a{
+  color:#a1887f;
+  text-decoration:none;
+}
+form small a:hover{
+  text-decoration:underline;
+}
+form button{
+  margin-top:10px;
+  padding:12px 24px;
+  background:#3e2723;
+  color:white;
+  border:none;
+  font-size:1rem;
+  font-weight:600;
+  border-radius:25px;
+  cursor:pointer;
+  transition:background .3s,transform .3s;
+}
+form button:hover{
+  background:#a1887f;
+  color:#3e2723;
+  transform:scale(1.05);
+}
+
+/* === BACK LINK === */
+.back-link{
+  display:block;
+  text-align:center;
+  margin-top:30px;
+  color:#3e2723;
+  font-weight:500;
+  text-decoration:none;
+  transition:color .3s;
+}
+.back-link:hover{
+  color:#a1887f;
+}
+
+/* === RESPONSIVE === */
+@media(max-width:600px){
+  header{flex-direction:column;gap:10px;}
+  main{margin:60px auto;}
+  form{padding:20px;}
+  main h1{font-size:1.6rem;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Admin Panel</h1>
+  <nav>
+    <a href="/admin">Dashboard</a>
+    <a href="/admin/login?logout=1">Logout</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Email Settings</h1>
+
+  <form action="/admin/email-config" method="POST">
+    <p>
+      <label>Send From (Gmail):</label><br>
+      <input type="email" name="emailUser" value="<%= config.emailUser %>" required>
+    </p>
+    <p>
+      <label>App Password:</label><br>
+      <input type="password" name="emailPass" value="<%= config.emailPass %>" required>
+      <br>
+      <small><a href="https://myaccount.google.com/apppasswords" target="_blank">Get App Password</a></small>
+    </p>
+    <p>
+      <label>Receive Alerts At:</label><br>
+      <input type="email" name="sellerEmail" value="<%= config.sellerEmail %>" required>
+    </p>
+    <button type="submit">Save Email Settings</button>
+  </form>
+
+  <a class="back-link" href="/admin">← Back to Dashboard</a>
+</main>
+
+</body>
+</html>

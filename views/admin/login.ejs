@@ -1,7 +1,110 @@
-<h1>Admin Login</h1>
-<form action="/admin/login" method="POST">
-  <input type="text" name="username" placeholder="Username" required><br><br>
-  <input type="password" name="password" placeholder="Password" required><br><br>
-  <button>Login</button>
-</form>
-<p>Default: admin / password</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login | Urban Solz</title>
+<style>
+/* === RESET & BASE === */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(180deg,#f6f0e9 0%,#f5deb3 100%);
+  color:#3e2723;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+/* === LOGIN CARD === */
+.login-card{
+  background:#fff;
+  padding:50px 40px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  text-align:center;
+  max-width:400px;
+  width:90%;
+  animation:fadein 1s ease;
+}
+@keyframes fadein{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+/* === TITLE === */
+.login-card h1{
+  font-size:2rem;
+  margin-bottom:25px;
+  font-weight:700;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+/* === INPUTS === */
+.login-card input{
+  width:100%;
+  padding:12px 14px;
+  margin-bottom:20px;
+  border:1px solid #ccc;
+  border-radius:10px;
+  font-size:1rem;
+  transition:border-color .3s,box-shadow .3s;
+}
+.login-card input:focus{
+  border-color:#a1887f;
+  box-shadow:0 0 6px rgba(161,136,127,0.5);
+  outline:none;
+}
+
+/* === BUTTON === */
+.login-card button{
+  width:100%;
+  padding:12px;
+  background:#3e2723;
+  color:#fff;
+  border:none;
+  border-radius:25px;
+  font-size:1rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:background .3s,transform .3s;
+}
+.login-card button:hover{
+  background:#a1887f;
+  color:#3e2723;
+  transform:scale(1.05);
+}
+
+/* === FOOTNOTE === */
+.login-card p{
+  margin-top:20px;
+  font-size:.9rem;
+  color:#4e342e;
+  opacity:0.9;
+}
+.login-card p strong{color:#3e2723;}
+
+/* === RESPONSIVE === */
+@media(max-width:500px){
+  .login-card{
+    padding:40px 25px;
+  }
+  .login-card h1{font-size:1.7rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="login-card">
+  <h1>Admin Login</h1>
+  <form action="/admin/login" method="POST">
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button>Login</button>
+  </form>
+  <p>Default: <strong>admin / password</strong></p>
+</div>
+
+</body>
+</html>
