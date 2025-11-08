@@ -1,19 +1,24 @@
 // routes/admin.js
 const multer = require('multer');
 const path = require('path');
+const cloudinary = require('cloudinary').v2;
 const Product = require('../models/Product');
 const Order = require('../models/Order');
 const Config = require('../models/Config');
 const Admin = require('../models/Admin');
 const EmailConfig = require('../models/EmailConfig');
 
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
 module.exports = function(getEmailConfig, app) {
   const router = require('express').Router();
 
-  const storage = multer.diskStorage({
-    destination: './public/uploads',
-    filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname))
-  });
+  const storage = multer.memoryStorage(); // Use memory for Cloudinary
   const upload = multer({ storage });
 
   const isAdmin = (req, res, next) => {
@@ -44,13 +49,12 @@ module.exports = function(getEmailConfig, app) {
     res.render('admin/dashboard', { orders, products, config, emailConfig });
   });
 
-  // Email Settings Page
+  // Email Settings
   router.get('/email-settings', isAdmin, async (req, res) => {
     const emailConfig = await EmailConfig.findOne();
     res.render('admin/email-settings', { config: emailConfig });
   });
 
-  // Save Email Config + Refresh Transporter
   router.post('/email-config', isAdmin, async (req, res) => {
     const { emailUser, emailPass, sellerEmail } = req.body;
     await EmailConfig.updateOne(
@@ -59,8 +63,7 @@ module.exports = function(getEmailConfig, app) {
       { upsert: true }
     );
 
-    // === REFRESH EMAIL TRANSPORTER ===
-    // Re-require store route and call createTransporter
+    // Refresh transporter
     const storeRoutes = require('./store');
     const storeRouter = storeRoutes(getEmailConfig, app);
     if (storeRouter.createTransporter) {
@@ -70,26 +73,61 @@ module.exports = function(getEmailConfig, app) {
     res.redirect('/admin/email-settings');
   });
 
-  // Add Product
+  // Add Product (Cloudinary Upload)
   router.post('/product/add', isAdmin, upload.single('image'), async (req, res) => {
+    let imageUrl = '';
+    if (req.file) {
+      const result = await cloudinary.uploader.upload_stream(
+        { resource_type: 'auto' },
+        (error, result) => {
+          if (error) {
+            console.error('Cloudinary upload error:', error);
+          } else {
+            imageUrl = result.secure_url;
+          }
+        }
+      ).end(req.file.buffer);
+    }
+
     const product = new Product({
       name: req.body.name,
       description: req.body.desc,
       price: req.body.price,
-      image: '/uploads/' + req.file.filename
+      image: imageUrl || req.body.existingImage // Fallback for no file
     });
     await product.save();
     res.redirect('/admin');
   });
 
-  // Edit Product
+  // Edit Product (Cloudinary Upload)
   router.post('/product/edit/:id', isAdmin, upload.single('image'), async (req, res) => {
+    const product = await Product.findById(req.params.id);
     const update = {
       name: req.body.name,
       description: req.body.desc,
       price: req.body.price
     };
-    if (req.file) update.image = '/uploads/' + req.file.filename;
+
+    if (req.file) {
+      // Delete old image from Cloudinary if exists
+      if (product.image.startsWith('https://res.cloudinary.com/')) {
+        const publicId = product.image.split('/').pop().split('.')[0];
+        await cloudinary.uploader.destroy(publicId);
+      }
+
+      // Upload new
+      const result = await new Promise((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+          { resource_type: 'auto' },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        ).end(req.file.buffer);
+      });
+      update.image = result.secure_url;
+    }
+
     await Product.findByIdAndUpdate(req.params.id, update);
     res.redirect('/admin');
   });

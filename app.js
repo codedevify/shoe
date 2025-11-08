@@ -1,4 +1,3 @@
-// app.js
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
@@ -70,17 +69,17 @@ async function seedData() {
 
     if (await Product.countDocuments() === 0) {
       const products = [
-        { name: 'Nike Air Max', description: 'Comfortable running shoes', price: 120, image: '/uploads/shoe1.jpg' },
-        { name: 'Adidas Ultraboost', description: 'High performance', price: 180, image: '/uploads/shoe2.jpg' },
-        { name: 'Puma RS-X', description: 'Bold street style', price: 110, image: '/uploads/shoe3.jpg' },
-        { name: 'Reebok Classic', description: 'Timeless design', price: 80, image: '/uploads/shoe4.jpg' },
-        { name: 'Vans Old Skool', description: 'Skate culture icon', price: 70, image: '/uploads/shoe5.jpg' },
-        { name: 'Converse Chuck 70', description: 'Vintage high-top', price: 85, image: '/uploads/shoe6.jpg' },
-        { name: 'New Balance 550', description: 'Retro basketball', price: 130, image: '/uploads/shoe7.jpg' },
-        { name: 'Jordan 1 Low', description: 'Iconic style', price: 150, image: '/uploads/shoe8.jpg' }
+        { name: 'Nike Air Max', description: 'Comfortable running shoes', price: 120, image: 'https://via.placeholder.com/300x200?text=Nike+Air+Max' },
+        { name: 'Adidas Ultraboost', description: 'High performance', price: 180, image: 'https://via.placeholder.com/300x200?text=Adidas+Ultraboost' },
+        { name: 'Puma RS-X', description: 'Bold street style', price: 110, image: 'https://via.placeholder.com/300x200?text=Puma+RS-X' },
+        { name: 'Reebok Classic', description: 'Timeless design', price: 80, image: 'https://via.placeholder.com/300x200?text=Reebok+Classic' },
+        { name: 'Vans Old Skool', description: 'Skate culture icon', price: 70, image: 'https://via.placeholder.com/300x200?text=Vans+Old+Skool' },
+        { name: 'Converse Chuck 70', description: 'Vintage high-top', price: 85, image: 'https://via.placeholder.com/300x200?text=Converse+Chuck+70' },
+        { name: 'New Balance 550', description: 'Retro basketball', price: 130, image: 'https://via.placeholder.com/300x200?text=New+Balance+550' },
+        { name: 'Jordan 1 Low', description: 'Iconic style', price: 150, image: 'https://via.placeholder.com/300x200?text=Jordan+1+Low' }
       ];
       await Product.insertMany(products);
-      console.log('8 Products Seeded');
+      console.log('8 Products Seeded with placeholder images');
     }
 
     if (await Config.countDocuments() === 0) {
@@ -98,4 +97,4 @@ seedData();
 
 // --- SERVER ---
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
