@@ -254,14 +254,25 @@ form button:hover{
 
 <h2>Edit Products</h2>
 <% products.forEach(p => { %>
-  <form action="/admin/product/edit/<%= p._id %>" method="POST" enctype="multipart/form-data" style="border:1px solid #ddd; margin:10px; padding:10px;">
-    <input type="text" name="name" value="<%= p.name %>">
-    <input type="text" name="desc" value="<%= p.description %>">
-    <input type="number" name="price" value="<%= p.price %>">
-    <img src="<%= p.image %>" width="100" alt="Current">
-    <input type="file" name="image" accept="image/*">
-    <button>Update</button>
-  </form>
+  <div class="product-card">
+    <form action="/admin/product/edit/<%= p._id %>" method="POST" enctype="multipart/form-data">
+      <input type="text" name="name" value="<%= p.name %>" required>
+      <input type="text" name="desc" value="<%= p.description %>" required>
+      <input type="number" name="price" value="<%= p.price %>" required>
+      <% if (p.image) { %>
+        <img src="<%= p.image %>" width="100" alt="Current">
+      <% } else { %>
+        <p><i>No image</i></p>
+      <% } %>
+      <input type="file" name="image" accept="image/*">
+      <button type="submit">Update</button>
+    </form>
+
+    <!-- DELETE BUTTON -->
+    <form action="/admin/product/delete/<%= p._id %>" method="POST" onsubmit="return confirm('Delete <%= p.name %>?');">
+      <button type="submit" style="background:#d32f2f; margin-top:5px;">Delete</button>
+    </form>
+  </div>
 <% }) %>
 
 
