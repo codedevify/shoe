@@ -4,198 +4,164 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Panel | Urban Solz</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <style>
-/* === RESET & BASE === */
+/* -------------------------------------------------
+   RESET & TYPOGRAPHY
+------------------------------------------------- */
 *{margin:0;padding:0;box-sizing:border-box}
+html{font-size:100%}
 body{
-  font-family:'Poppins',sans-serif;
+  font-family:'Inter',sans-serif;
   background:linear-gradient(180deg,#f6f0e9 0%,#f5deb3 100%);
   color:#3e2723;
-  overflow-x:hidden;
-  padding-bottom:80px;
+  line-height:1.6;
+  min-height:100vh;
 }
-a{text-decoration:none;color:#3e2723;transition:color .3s}
+a{color:inherit;text-decoration:none;transition:color .25s}
 a:hover{color:#a1887f}
 
-/* === HEADER === */
+/* -------------------------------------------------
+   HEADER
+------------------------------------------------- */
 header{
-  background:rgba(255,255,255,0.95);
-  backdrop-filter:blur(10px);
   position:sticky;top:0;z-index:1000;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:1rem 6%;
-  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(12px);
+  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;
+  padding:1rem 5%;
+  box-shadow:0 4px 12px rgba(0,0,0,.07);
 }
-header h1{font-size:1.5rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#3e2723;}
+header h1{
+  font-size:1.5rem;font-weight:700;letter-spacing:.5px;
+}
+header nav{display:flex;gap:1.5rem;align-items:center}
 header nav a{
-  margin-left:25px;font-weight:500;color:#4e342e;
+  font-weight:500;color:#4e342e;
 }
 header nav a:hover{color:#a1887f}
 
-/* === CONTAINER === */
+/* -------------------------------------------------
+   MAIN CONTAINER
+------------------------------------------------- */
 main{
-  max-width:1100px;
-  margin:50px auto;
-  padding:0 6%;
-}
-main h2{
-  font-size:1.6rem;
-  margin-top:50px;
-  margin-bottom:15px;
-  font-weight:700;
-  border-left:5px solid #3e2723;
-  padding-left:10px;
-  text-transform:uppercase;
+  max-width:1200px;margin:4rem auto;padding:0 5%;
 }
 main h1{
-  font-size:2.2rem;
-  font-weight:800;
-  margin-bottom:15px;
-  text-align:center;
-  letter-spacing:1px;
+  text-align:center;font-size:2.2rem;font-weight:800;margin-bottom:1.5rem;
+  letter-spacing:.5px;
 }
 .top-links{
-  text-align:center;
-  margin-bottom:40px;
+  text-align:center;margin-bottom:2.5rem;
 }
 .top-links a{
-  display:inline-block;
-  margin:0 10px;
-  background:#3e2723;
-  color:#fff;
-  padding:8px 18px;
-  border-radius:25px;
-  font-weight:500;
-  transition:background .3s,transform .3s;
+  display:inline-block;margin:0 .5rem;
+  background:#3e2723;color:#fff;padding:.65rem 1.4rem;
+  border-radius:2rem;font-weight:600;font-size:.95rem;
+  transition:background .3s,transform .2s;
 }
 .top-links a:hover{
-  background:#a1887f;
-  color:#3e2723;
-  transform:translateY(-2px);
+  background:#a1887f;color:#3e2723;transform:translateY(-2px);
 }
 
-/* === FORMS === */
-form{
-  background:#fff;
-  border-radius:20px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.08);
-  padding:25px;
-  margin-bottom:25px;
-  transition:transform .3s;
+/* -------------------------------------------------
+   SECTION HEADERS
+------------------------------------------------- */
+section{margin-bottom:3rem}
+section h2{
+  font-size:1.45rem;font-weight:700;margin-bottom:1rem;
+  border-left:5px solid #3e2723;padding-left:.75rem;
+  text-transform:uppercase;letter-spacing:.5px;
 }
-form:hover{transform:translateY(-3px);}
-form input[type="text"],
-form input[type="number"],
-form input[type="file"]{
-  width:100%;
-  padding:10px 14px;
-  margin-bottom:15px;
-  border-radius:10px;
-  border:1px solid #ccc;
-  font-family:'Poppins',sans-serif;
-  font-size:0.95rem;
-  transition:border-color .3s,box-shadow .3s;
+
+/* -------------------------------------------------
+   FORMS
+------------------------------------------------- */
+form{
+  background:#fff;border-radius:1.25rem;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+  padding:1.75rem;transition:transform .25s;
+}
+form:hover{transform:translateY(-4px);}
+form input[type=text],
+form input[type=number],
+form input[type=file]{
+  width:100%;padding:.75rem 1rem;margin-bottom:1rem;
+  border:1px solid #d1c4b8;border-radius:.75rem;
+  font-size:.95rem;transition:border-color .25s,box-shadow .25s;
 }
 form input:focus{
-  border-color:#a1887f;
-  box-shadow:0 0 6px rgba(161,136,127,0.5);
-  outline:none;
+  border-color:#a1887f;outline:none;
+  box-shadow:0 0 0 3px rgba(161,136,127,.2);
 }
 form button{
-  background:#3e2723;
-  color:#fff;
-  border:none;
-  border-radius:20px;
-  padding:10px 25px;
-  font-size:0.95rem;
-  font-weight:600;
-  cursor:pointer;
-  transition:background .3s,transform .3s;
+  background:#3e2723;color:#fff;border:none;
+  border-radius:2rem;padding:.65rem 1.6rem;
+  font-size:.95rem;font-weight:600;cursor:pointer;
+  transition:background .3s,transform .2s;
 }
 form button:hover{
-  background:#a1887f;
-  color:#3e2723;
-  transform:scale(1.05);
+  background:#a1887f;color:#3e2723;transform:scale(1.04);
 }
 
-/* === ORDER LIST === */
+/* -------------------------------------------------
+   ORDER LIST
+------------------------------------------------- */
 .order-card{
-  background:#fff;
-  border-radius:15px;
-  box-shadow:0 6px 15px rgba(0,0,0,0.08);
-  padding:20px;
-  margin-bottom:15px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
+  background:#fff;border-radius:1rem;
+  box-shadow:0 6px 18px rgba(0,0,0,.07);
+  padding:1.25rem;margin-bottom:1rem;
+  display:flex;flex-wrap:wrap;justify-content:space-between;
+  align-items:center;gap:1rem;
 }
-.order-info{
-  font-size:0.95rem;
-  color:#4e342e;
-  flex:1;
-  margin-right:15px;
-}
-.order-status i{
-  color:#a1887f;
-  font-style:italic;
-}
-.order-actions form{
-  display:inline-block;
-  margin-left:10px;
-}
+.order-info{flex:1;font-size:.95rem;color:#4e342e}
+.order-status i{color:#a1887f;font-style:italic}
+.order-actions form{display:inline-block;margin-left:.5rem}
 .order-actions button{
-  background:#3e2723;
-  color:#fff;
-  border:none;
-  border-radius:20px;
-  padding:6px 14px;
-  font-size:0.85rem;
-  cursor:pointer;
-  transition:background .3s,transform .3s;
+  background:#3e2723;color:#fff;border:none;
+  border-radius:1.5rem;padding:.45rem .95rem;
+  font-size:.85rem;cursor:pointer;
+  transition:background .3s,transform .2s;
 }
 .order-actions button:hover{
-  background:#a1887f;
-  color:#3e2723;
-  transform:scale(1.05);
+  background:#a1887f;color:#3e2723;transform:scale(1.05);
 }
 
-/* === PRODUCT GRID === */
+/* -------------------------------------------------
+   PRODUCT GRID (EDIT)
+------------------------------------------------- */
 .product-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:20px;
-  margin-top:20px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.5rem;margin-top:1.5rem;
 }
 .product-card{
-  background:#fff;
-  border-radius:20px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.08);
-  padding:20px;
-  transition:transform .3s;
+  background:#fff;border-radius:1.25rem;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+  padding:1.5rem;transition:transform .25s;
 }
-.product-card:hover{transform:translateY(-3px);}
+.product-card:hover{transform:translateY(-4px);}
 .product-card img{
-  width:100%;
-  border-radius:15px;
-  margin-bottom:10px;
-  max-height:180px;
-  object-fit:cover;
+  width:100%;max-height:180px;object-fit:cover;
+  border-radius:1rem;margin-bottom:.75rem;
 }
 .product-card input,
-.product-card button{
-  width:100%;
-}
-.product-card button{
-  margin-top:5px;
-}
+.product-card button{width:100%;margin-top:.5rem}
+.product-card button{margin-top:.75rem}
 
-/* === RESPONSIVE === */
-@media(max-width:700px){
-  header{flex-direction:column;gap:10px;}
-  .order-card{flex-direction:column;align-items:flex-start;}
-  .order-actions{margin-top:10px;}
-  main h1{font-size:1.7rem;}
+/* -------------------------------------------------
+   RESPONSIVE
+------------------------------------------------- */
+@media (max-width:768px){
+  header{flex-direction:column;gap:.75rem;padding:1rem 4%}
+  header h1{font-size:1.35rem}
+  main h1{font-size:1.9rem}
+  .top-links a{margin:.4rem .3rem;padding:.55rem 1.1rem;font-size:.9rem}
+}
+@media (max-width:480px){
+  .order-card{flex-direction:column;align-items:flex-start}
+  .order-actions{margin-top:.75rem}
 }
 </style>
 </head>
@@ -204,8 +170,8 @@ form button:hover{
 <header>
   <h1>Admin Panel</h1>
   <nav>
-    <a href="/admin/login?logout=1">Logout</a>
-    <a href="/admin/email-settings">Email Settings</a>
+    <a href="/admin/login?logout=1"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    <a href="/admin/email-settings"><i class="fas fa-cog"></i> Email Settings</a>
   </nav>
 </header>
 
@@ -216,67 +182,75 @@ form button:hover{
     <a href="/admin/login?logout=1">Logout</a>
   </div>
 
-  <h2>Stripe Keys</h2>
-  <form action="/admin/config" method="POST">
-    <input type="text" name="pk" value="<%= config.stripePublishableKey %>" placeholder="pk_test_..." required>
-    <input type="text" name="sk" value="<%= config.stripeSecretKey %>" placeholder="sk_test_..." required>
-    <button>Save Keys</button>
-  </form>
+  <section>
+    <h2>Stripe Keys</h2>
+    <form action="/admin/config" method="POST">
+      <input type="text" name="pk" value="<%= config.stripePublishableKey %>" placeholder="pk_test_..." required>
+      <input type="text" name="sk" value="<%= config.stripeSecretKey %>" placeholder="sk_test_..." required>
+      <button>Save Keys</button>
+    </form>
+  </section>
 
-  <h2>Orders</h2>
-  <% orders.forEach(o => { %>
-    <div class="order-card">
-      <div class="order-info">
-        <strong>#<%= o._id %></strong> | <%= o.email %> | $<%= o.total %> | 
-        <span class="order-status"><i><%= o.status %></i></span>
+  <section>
+    <h2>Orders</h2>
+    <% orders.forEach(o => { %>
+      <div class="order-card">
+        <div class="order-info">
+          <strong>#<%= o._id %></strong> | <%= o.email %> | $<%= o.total %> |
+          <span class="order-status"><i><%= o.status %></i></span>
+        </div>
+        <div class="order-actions">
+          <% if (o.status === 'Pending') { %>
+            <form action="/admin/order/confirm/<%= o._id %>" method="POST">
+              <button>Confirm</button>
+            </form>
+            <form action="/admin/order/cancel/<%= o._id %>" method="POST">
+              <button>Cancel</button>
+            </form>
+          <% } %>
+        </div>
       </div>
-      <div class="order-actions">
-        <% if (o.status === 'Pending') { %>
-          <form action="/admin/order/confirm/<%= o._id %>" method="POST">
-            <button>Confirm</button>
+    <% }) %>
+  </section>
+
+  <section>
+    <h2>Add Product</h2>
+    <form action="/admin/product/add" method="POST" enctype="multipart/form-data">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="text" name="desc" placeholder="Description" required>
+      <input type="number" name="price" placeholder="Price" required>
+      <input type="file" name="image" accept="image/*" required>
+      <button>Add Product</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Edit Products</h2>
+    <div class="product-grid">
+      <% products.forEach(p => { %>
+        <div class="product-card">
+          <form action="/admin/product/edit/<%= p._id %>" method="POST" enctype="multipart/form-data">
+            <input type="text" name="name" value="<%= p.name %>" required>
+            <input type="text" name="desc" value="<%= p.description %>" required>
+            <input type="number" name="price" value="<%= p.price %>" required>
+            <% if (p.image) { %>
+              <img src="<%= p.image %>" alt="Current">
+            <% } else { %>
+              <p><i>No image</i></p>
+            <% } %>
+            <input type="file" name="image" accept="image/*">
+            <button type="submit">Update</button>
           </form>
-          <form action="/admin/order/cancel/<%= o._id %>" method="POST">
-            <button>Cancel</button>
+
+          <form action="/admin/product/delete/<%= p._id %>" method="POST"
+                onsubmit="return confirm('Delete <%= p.name %>?');">
+            <button type="submit" style="background:#d32f2f;">Delete</button>
           </form>
-        <% } %>
-      </div>
+        </div>
+      <% }) %>
     </div>
-  <% }) %>
-
-  <h2>Add Product</h2>
-  <form action="/admin/product/add" method="POST" enctype="multipart/form-data">
-    <input type="text" name="name" placeholder="Name" required>
-    <input type="text" name="desc" placeholder="Description" required>
-    <input type="number" name="price" placeholder="Price" required>
-    <input type="file" name="image" accept="image/*" required>
-    <button>Add Product</button>
-  </form>
-
-<h2>Edit Products</h2>
-<% products.forEach(p => { %>
-  <div class="product-card">
-    <form action="/admin/product/edit/<%= p._id %>" method="POST" enctype="multipart/form-data">
-      <input type="text" name="name" value="<%= p.name %>" required>
-      <input type="text" name="desc" value="<%= p.description %>" required>
-      <input type="number" name="price" value="<%= p.price %>" required>
-      <% if (p.image) { %>
-        <img src="<%= p.image %>" width="100" alt="Current">
-      <% } else { %>
-        <p><i>No image</i></p>
-      <% } %>
-      <input type="file" name="image" accept="image/*">
-      <button type="submit">Update</button>
-    </form>
-
-    <!-- DELETE BUTTON -->
-    <form action="/admin/product/delete/<%= p._id %>" method="POST" onsubmit="return confirm('Delete <%= p.name %>?');">
-      <button type="submit" style="background:#d32f2f; margin-top:5px;">Delete</button>
-    </form>
-  </div>
-<% }) %>
-
-
-
+  </section>
 </main>
+
 </body>
 </html>
